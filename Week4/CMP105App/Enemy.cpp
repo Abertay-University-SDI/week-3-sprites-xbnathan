@@ -16,7 +16,7 @@ void Enemy::update(float dt)
 {
 	move(enemyDir.x * enemySpeed * dt, enemyDir.y * enemySpeed * dt);
 
-	if (getPosition().x + getGlobalBounds().width > window->getSize().x|| getPosition().x < 0)
+	if (getPosition().x > 11038|| getPosition().x < 0)
 	{
 		enemyDir.x *= -1;
 	}

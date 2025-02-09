@@ -8,11 +8,13 @@
 #include <iostream>
 #include "Player.h"
 #include "Enemy.h"
+#include "Background.h"
+#include "Cursor.h"
 
 
 class Level : BaseLevel {
 public:
-	Level(sf::RenderWindow* hwnd, Input* in);
+	Level(sf::RenderWindow* win, Input* in);
 	~Level();
 
 	void handleInput(float dt) override;
@@ -28,4 +30,10 @@ private:
 	Enemy beachBall;
 	sf::Texture goombaTexture;
 	sf::Texture beachBallTexture;
+
+	Cursor cursor;
+	sf::Texture cursorTexture;
+
+	Background background;
+	sf::Texture backgroundTexture;
 };

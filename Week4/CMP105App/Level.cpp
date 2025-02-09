@@ -1,14 +1,15 @@
 #include "Level.h"
 
-Level::Level(sf::RenderWindow* hwnd, Input* in)
+Level::Level(sf::RenderWindow* win, Input* in)
 {
-	window = hwnd;
+	window = win;
 	input = in;
 
 	// initialise game objects
-	texture.loadFromFile("gfx/Mushroom.png");
+	texture.loadFromFile("gfx/dude_1.png");
 	goombaTexture.loadFromFile("gfx/Goomba.png");
 	beachBallTexture.loadFromFile("gfx/Beach_Ball.png");
+	backgroundTexture.loadFromFile("gfx/Level1_1.png");
 
 	/*testSprite.setTexture(&texture);
 	testSprite.setSize(sf::Vector2f(100, 100));
@@ -36,6 +37,17 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	beachBall.setTexture(&beachBallTexture);
 	beachBall.setSize(sf::Vector2f(100, 100));
 	beachBall.setPosition(200, 250);
+
+	/*view.setSize(10038, 675);
+	view = window->getView();*/
+
+	background.setWindow(window);
+	background.setTexture(&backgroundTexture);
+	background.setSize(sf::Vector2f(11038, 675));
+
+	background.setInput(input);
+
+	cursor.setInput(input);
 }
 
 Level::~Level()
@@ -54,11 +66,19 @@ void Level::handleInput(float dt)
 
 	playerObject.handleInput(dt);
 
+	background.handleInput(dt);
+
+	cursor.handleInput(dt);
+
 
 	/*if (input->isPressed(sf::Keyboard::A))
 	{
 		playerObject.handleInput(dt);
 	}*/
+
+	window->setMouseCursorVisible(false);
+
+	//std::cout << "(" + std::to_string(input->getMouseX()) + ", " + std::to_string(input->getMouseY()) + ")";
 }
 
 // Update game objects
@@ -67,6 +87,11 @@ void Level::update(float dt)
 	playerObject.update(dt);
 	goomba.update(dt);
 	beachBall.update(dt);
+	background.update(dt);
+
+	cursor.update(dt);
+
+	window->getSize();
 }
 
 // Render level
@@ -74,14 +99,20 @@ void Level::render()
 {
 	beginDraw();
 
+	
 	//window->draw(testSprite);
 
 	// render the player
+	window->draw(background);
+
 	window->draw(playerObject);
 
 	window->draw(goomba);
 
 	window->draw(beachBall);
+
+	window->draw(cursor);
+
 
 	endDraw();
 }

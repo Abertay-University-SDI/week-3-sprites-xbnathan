@@ -3,7 +3,7 @@
 
 Player::Player()
 {
-	playerSpeed = 250.f;
+	playerSpeed = 1000.f;
 	playerDir = sf::Vector2f(1, 1);
 }
 
@@ -35,7 +35,7 @@ void Player::handleInput(float dt)
 
 void Player::update(float dt)
 {
-	if (getPosition().x + getGlobalBounds().width > window->getSize().x)
+	if (getPosition().x > 11038)
 	{
 		move(-playerSpeed * dt, 0);
 	}
